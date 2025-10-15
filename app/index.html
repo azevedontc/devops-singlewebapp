@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Pessoas</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 8px 12px; border: 1px solid #ccc; text-align: left; }
+    th { background-color: #f5f5f5; }
+  </style>
+</head>
+<body>
+  <h1>Lista de Pessoas</h1>
+  <table id="tabela-pessoas">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Linhas serão inseridas aqui -->
+    </tbody>
+  </table>
+
+  <script>
+    async function carregarPessoas() {
+      try {
+        const resposta = await fetch('/api/person');
+        if (!resposta.ok) throw new Error('Erro ao buscar dados');
+
+        const pessoas = await resposta.json();
+        const corpoTabela = document.querySelector('#tabela-pessoas tbody');
+
+        // Limpa tabela antes de inserir
+        corpoTabela.innerHTML = '';
+
+        pessoas.forEach(p => {
+          const linha = document.createElement('tr');
+          linha.innerHTML = `
+            <td>${p.id}</td>
+            <td>${p.name}</td>
+            <td>${p.email}</td>
+          `;
+          corpoTabela.appendChild(linha);
+        });
+
+      } catch (erro) {
+        console.error('Erro:', erro);
+      }
+    }
+
+    // Chama a função ao carregar a página
+    window.onload = carregarPessoas;
+  </script>
+</body>
+</html>
