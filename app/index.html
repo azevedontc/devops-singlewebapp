@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Lista de Pessoas</title>
+  <title>Lista de Ambientes</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 30px; }
     table { border-collapse: collapse; width: 100%; }
@@ -11,13 +11,11 @@
   </style>
 </head>
 <body>
-  <h1>Lista de Pessoas</h1>
-  <table id="tabela-pessoas">
+  <h1>Lista de Ambientes</h1>
+  <table id="tabela-ambiente">
     <thead>
       <tr>
-        <th>FODASE</th>
         <th>Nome</th>
-        <th>Email</th>
       </tr>
     </thead>
     <tbody>
@@ -26,23 +24,21 @@
   </table>
 
   <script>
-    async function carregarPessoas() {
+    async function carregarAmbiente() {
       try {
-        const resposta = await fetch('/api/person');
+        const resposta = await fetch('/ambiente');
         if (!resposta.ok) throw new Error('Erro ao buscar dados');
 
-        const pessoas = await resposta.json();
-        const corpoTabela = document.querySelector('#tabela-pessoas tbody');
+        const ambiente = await resposta.json();
+        const corpoTabela = document.querySelector('#tabela-ambiente tbody');
 
         // Limpa tabela antes de inserir
         corpoTabela.innerHTML = '';
 
-        pessoas.forEach(p => {
+        ambiente.forEach(p => {
           const linha = document.createElement('tr');
           linha.innerHTML = `
-            <td>${p.id}</td>
-            <td>${p.name}</td>
-            <td>${p.email}</td>
+            <td>${p.nome}</td>
           `;
           corpoTabela.appendChild(linha);
         });
@@ -53,7 +49,7 @@
     }
 
     // Chama a função ao carregar a página
-    window.onload = carregarPessoas;
+    window.onload = carregarAmbiente;
   </script>
 </body>
 </html>
