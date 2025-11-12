@@ -20,3 +20,7 @@ COPY app/* /var/www/html
 EXPOSE 80
  
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80
