@@ -59,12 +59,12 @@ pipeline {
 
   post {
     success {
-      emailext to: 'augustosilva@alunos.utfpr.edu.br',
+      emailext to: 'azevedo.fidelis.silva@gmail.com',
                subject: "[OK] ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                body: "Front publicado em http://SEU_IP:${HOST_PORT}\nImagem: ${IMAGE_NAME}:latest"
     }
     failure {
-      emailext to: 'augustosilva@alunos.utfpr.edu.br',
+      emailext to: 'azevedo.fidelis.silva@gmail.com',
                subject: "[FALHA] ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                body: "Ver console: ${env.BUILD_URL}"
     }
